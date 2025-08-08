@@ -31,7 +31,7 @@ class FplClient(BaseModel):
         payload = await self._get_json("bootstrap-static/")
         raw_players = list[dict] = payload["elements"]
 
-        # TODO: Player validation
+        Player.model_validate(raw_players[0])
 
         df = pd.DataFrame(raw_players)
         df["snapshot_ts"] = datetime.utcnow()
