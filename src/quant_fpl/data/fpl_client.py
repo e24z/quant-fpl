@@ -1,6 +1,12 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 import httpx
 import pandas as pd
+
+class Player(BaseModel):
+    """Subset of fields we care about."""
+    id = int
+    web_name = str
+    now_cost: int = Field(ge=0) # TODO: Check typing... 
 
 class FplClient(BaseModel):
     """Wrapper around the FPL API."""
