@@ -21,3 +21,12 @@ class FplClient(BaseModel):
             
     async def bootstrap(self) -> pd.DataFrame:
         """Fetch the bootstrap-static payload and return the `elements` table."""
+
+        payload = await self._get_json("bootstrap-static/")
+        raw_players = list[dict] = payload["elements"]
+
+        # TODO: Player validation
+
+        df = pd.DataFrame(raw_players)
+        df["snapshot_ts"] = datetime.utcnow()
+        return df
