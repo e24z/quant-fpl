@@ -19,7 +19,7 @@ class FplClient(BaseModel):
         """Takes an endpoint, sends a GET request and returns JSON object."""
 
         url = f"{self.BASE_URL}/{path.lstrip("/")}"
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
+        async with httpx.AsyncClient(timeout=self.timeout_s) as client:
             response = await client.get(url)
             response.raise_for_status()
             return response.json()
