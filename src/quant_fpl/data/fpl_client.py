@@ -30,22 +30,15 @@ class FPLClient(BaseModel):
         """Fetch the bootstrap-static payload and return the `elements` table."""
 
         payload = await self._get_json("bootstrap-static/")
-        raw_players: list[dict] = payload["elements"]
+        raw_players = payload["elements"]
 
         Player.model_validate(raw_players[0])
 
         df = pd.DataFrame(raw_players)
-        df["snapshot_ts"] = datetime.utcnow()
         return df
 
-if __name__ == "__main__":
-    import asyncio
-
-    async def main():
-        from quant_fpl.data.fpl_client import FPLClient
-
-        client = FPLClient()
-        data = await client.bootstrap()
-        print(f"Fetched {len(data)} players.")
-
-    asyncio.run(main())
+if __name__ == "__main__":   # pragma: no cover
+    import asyncio, pprint
+    df = asyncio.run(FPLClient().bootstrap())
+    print("shape:", df.shape)
+    print(df[["id", "web_name", "now_cost"]].head())
