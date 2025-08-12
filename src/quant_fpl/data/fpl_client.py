@@ -37,6 +37,9 @@ class FPLClient(BaseModel):
         df = pd.DataFrame(raw_players)
         return df
 
+    async def bootstrap_payload(self) -> dict:
+        return await self._get_json("bootstrap-static/")
+
 if __name__ == "__main__":   # pragma: no cover
     import asyncio, pprint
     df = asyncio.run(FPLClient().bootstrap())
