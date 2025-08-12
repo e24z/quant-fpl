@@ -17,4 +17,4 @@ dev = [
 ]
 
 [project.scripts]
-quant_fpl = "quant_fpl.cli:main"
+qfpl = "quant_fpl.cli:main"
