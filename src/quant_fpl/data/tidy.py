@@ -11,6 +11,6 @@ def tidy_payload(payload: dict) -> pd.DataFrame:
     players["ppg"] = pd.to_numeric(players["points_per_game"], errors="coerce").fillna(0.0)
     players["pos"] = players["element_type"].map(POS_MAP)
     out = players.merge(teams, left_on="team", right_on="team_id", how="left")
-    out = out[out["status"] == "a"]  # basic availability
+    out = out[out["status"] == "a"]
     return out[["id","web_name","pos","club","team","price","ppg"]].reset_index(drop=True)
     
